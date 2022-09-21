@@ -94,3 +94,7 @@ dfx canister --network ic id token_assets
 
 7. Copy the id from step 6 and add .raw.ic0.app to the end to form a URL.
    e.g. zdv65-7qaaa-aaaai-qibdq-cai.raw.ic0.app
+
+## Side notes
+
+dfx start --background --clean if deploy shows errors

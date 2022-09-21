@@ -86,6 +86,7 @@ module.exports = {
       template: path.join(__dirname, asset_entry),
       cache: false,
     }),
+    //! This was causing error - Pat's comment
     // new CopyPlugin({
     //   patterns: [
     //     {
