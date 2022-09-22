@@ -9,7 +9,7 @@ actor Token {
 var totalSupply : Nat = 1000000000000000;
 var symbol : Text = "DPAT";
 
-  private stable var balanceEntries : [(Principal, Nat)] = [];
+  // private stable var balanceEntries : [(Principal, Nat)] = [];
   private var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
   if (balances.size() < 1) {
       balances.put(owner, totalSupply);
@@ -29,8 +29,10 @@ var symbol : Text = "DPAT";
     return symbol;
   };
 
+// claim free tokens from Faucet
   public shared(msg) func payOut() : async Text {
     Debug.print(debug_show(msg.caller));
+    // if the balance does not exists, then give the free tokens
     if (balances.get(msg.caller) == null) {
       let amount = 100;
       let result = await transfer(msg.caller, amount);
@@ -57,16 +59,16 @@ var symbol : Text = "DPAT";
     
   };
 
-  system func preupgrade() {
-    balanceEntries := Iter.toArray(balances.entries());
-  };
+  // system func preupgrade() {
+  //   balanceEntries := Iter.toArray(balances.entries());
+  // };
 
-  system func postupgrade() {
-    balances := HashMap.fromIter<Principal, Nat>(balanceEntries.vals(), 1, Principal.equal, Principal.hash);
-    if (balances.size() < 1) {
-      balances.put(owner, totalSupply);
-    };
-  };
+  // system func postupgrade() {
+  //   balances := HashMap.fromIter<Principal, Nat>(balanceEntries.vals(), 1, Principal.equal, Principal.hash);
+  //   if (balances.size() < 1) {
+  //     balances.put(owner, totalSupply);
+  //   };
+  // };
 
 };
 
